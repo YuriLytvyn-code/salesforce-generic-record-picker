@@ -1,0 +1,121 @@
+import {
+    SET_CONFIG,
+    CHANGE_LABEL,
+    CHANGE_PLACEHOLDER,
+    CHANGE_OBJECT_API_NAME,
+    ADD_FILTER_CRITERIA,
+    REMOVE_FILTER_CRITERIA,
+    CHANGE_FILTER_CRITERIA_FIELD_PATH,
+    CHANGE_FILTER_CRITERIA_OPERATOR,
+    CHANGE_FILTER_CRITERIA_VALUE,
+    CHANGE_FILTER_LOGIC,
+    CHANGE_PRIMARY_DISPLAY_FIELD,
+    CHANGE_ADDITIONAL_DISPLAY_FIELD,
+    CHANGE_PRIMARY_MATCHING_FIELD,
+    CHANGE_PRIMARY_MATCHING_FIELD_MODE,
+    CHANGE_ADDITIONAL_MATCHING_FIELD
+} from "./constants";
+
+export const setConfig = (config) => {
+    return {
+        type: SET_CONFIG,
+        payload: config
+    };
+};
+
+export const changeLabel = (event) => {
+    return {
+        type: CHANGE_LABEL,
+        payload: event
+    };
+};
+
+export const changePlaceholder = (event) => {
+    return {
+        type: CHANGE_PLACEHOLDER,
+        payload: event
+    };
+};
+
+export const changeObjectApiName = (event) => {
+    return {
+        type: CHANGE_OBJECT_API_NAME,
+        payload: event
+    };
+};
+
+export const addFilterCriteria = () => {
+    return {
+        type: ADD_FILTER_CRITERIA
+    };
+};
+
+export const removeFilterCriteria = (event) => {
+    return {
+        type: REMOVE_FILTER_CRITERIA,
+        payload: event
+    };
+};
+
+export const changeFilterCriteriaFieldPath = (event) => {
+    return {
+        type: CHANGE_FILTER_CRITERIA_FIELD_PATH,
+        payload: event
+    };
+};
+
+export const changeFilterCriteriaOperator = (event) => {
+    return {
+        type: CHANGE_FILTER_CRITERIA_OPERATOR,
+        payload: event
+    };
+};
+
+export const changeFilterCriteriaValue = (event) => {
+    return {
+        type: CHANGE_FILTER_CRITERIA_VALUE,
+        payload: event
+    };
+};
+
+export const changeFilterLogic = (event) => {
+    return {
+        type: CHANGE_FILTER_LOGIC,
+        payload: event
+    };
+};
+
+export const changePrimaryDisplayField = (event) => {
+    return {
+        type: CHANGE_PRIMARY_DISPLAY_FIELD,
+        payload: event
+    };
+};
+
+export const changeAdditionalDisplayField = (event) => {
+    return {
+        type: CHANGE_ADDITIONAL_DISPLAY_FIELD,
+        payload: event
+    };
+};
+
+export const changePrimaryMatchingField = (event) => {
+    return {
+        type: CHANGE_PRIMARY_MATCHING_FIELD,
+        payload: event
+    };
+};
+
+export const changePrimaryMatchingFieldMode = (event) => {
+    return {
+        type: CHANGE_PRIMARY_MATCHING_FIELD_MODE,
+        payload: event
+    };
+};
+
+export const changeAdditionalMatchingField = (event) => {
+    return {
+        type: CHANGE_ADDITIONAL_MATCHING_FIELD,
+        payload: event
+    };
+};

@@ -1,0 +1,13 @@
+<template>
+    <lightning-record-picker
+        label={props.config.label}
+        placeholder={props.config.placeholder}
+        object-api-name={props.config.objectApiName}
+        filter={props.config.filter}
+        display-info={props.config.displayInfo}
+        matching-info={props.config.matchingInfo}
+        value={props.value}
+        onchange={props.changeRecordPickerValue}
+        onerror={props.setRecordPickerError}
+    ></lightning-record-picker>
+</template>
