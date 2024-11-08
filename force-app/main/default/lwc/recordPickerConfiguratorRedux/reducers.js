@@ -50,16 +50,16 @@ const configReducer = (config = defaultConfig, action) => {
             return {
                 ...config,
                 filter: {
+                    ...config.filter,
                     criteria: [
-                        ...(config.filter?.criteria || []),
+                        ...config.filter.criteria,
                         {
-                            index: (config.filter?.criteria?.length || 0) + 1,
+                            index: config.filter.criteria.length + 1,
                             fieldPath: "",
                             operator: "",
                             value: ""
                         }
-                    ],
-                    filterLogic: config.filter?.filterLogic || ""
+                    ]
                 }
             };
         case REMOVE_FILTER_CRITERIA:
@@ -71,10 +71,10 @@ const configReducer = (config = defaultConfig, action) => {
             return {
                 ...config,
                 filter: {
+                    ...config.filter,
                     criteria: [...config.filter.criteria].map(
                         (criteria, index) => ({ ...criteria, index: index + 1 })
-                    ),
-                    filterLogic: config.filter?.filterLogic || ""
+                    )
                 }
             };
         case CHANGE_FILTER_CRITERIA_FIELD_PATH:
@@ -85,8 +85,7 @@ const configReducer = (config = defaultConfig, action) => {
             return {
                 ...config,
                 filter: {
-                    criteria: [...config.filter.criteria],
-                    filterLogic: config.filter?.filterLogic || ""
+                    ...config.filter
                 }
             };
         case CHANGE_FILTER_CRITERIA_OPERATOR:
@@ -97,8 +96,7 @@ const configReducer = (config = defaultConfig, action) => {
             return {
                 ...config,
                 filter: {
-                    criteria: [...config.filter.criteria],
-                    filterLogic: config.filter?.filterLogic || ""
+                    ...config.filter
                 }
             };
         case CHANGE_FILTER_CRITERIA_VALUE:
@@ -109,15 +107,14 @@ const configReducer = (config = defaultConfig, action) => {
             return {
                 ...config,
                 filter: {
-                    criteria: [...config.filter.criteria],
-                    filterLogic: config.filter?.filterLogic || ""
+                    ...config.filter
                 }
             };
         case CHANGE_FILTER_LOGIC:
             return {
                 ...config,
                 filter: {
-                    criteria: [...config.filter.criteria],
+                    ...config.filter,
                     filterLogic: action.payload.target.value
                 }
             };
@@ -125,17 +122,15 @@ const configReducer = (config = defaultConfig, action) => {
             return {
                 ...config,
                 displayInfo: {
-                    primaryField: action.payload.target.value,
-                    additionalField: config.displayInfo?.additionalField,
-                    additionalFields: config.displayInfo?.additionalFields
+                    ...config.displayInfo,
+                    primaryField: action.payload.target.value
                 }
             };
         case CHANGE_ADDITIONAL_DISPLAY_FIELD:
             return {
                 ...config,
                 displayInfo: {
-                    primaryField: config.displayInfo?.primaryField,
-                    additionalField: action.payload.target.value,
+                    ...config.displayInfo,
                     additionalFields: [action.payload.target.value]
                 }
             };
@@ -177,8 +172,7 @@ const configReducer = (config = defaultConfig, action) => {
             } else {
                 config.displayInfo = {
                     primaryField: "",
-                    additionalField: "",
-                    additionalFields: []
+                    additionalFields: [""]
                 };
             }
 
@@ -191,8 +185,7 @@ const configReducer = (config = defaultConfig, action) => {
                 delete config.filter;
             } else {
                 config.filter = {
-                    criteria: [],
-                    filterLogic: ""
+                    criteria: []
                 };
             }
 

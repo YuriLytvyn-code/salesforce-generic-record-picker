@@ -152,11 +152,17 @@
                     onchange={props.changePrimaryDisplayField}
                     value={props.config.displayInfo.primaryField}
                 ></lightning-input>
-                <lightning-input
-                    label="Additional Display Field"
-                    onchange={props.changeAdditionalDisplayField}
-                    value={props.config.displayInfo.additionalField}
-                ></lightning-input>
+                <template
+                    for:each={props.config.displayInfo.additionalFields}
+                    for:item="additionalField"
+                >
+                    <lightning-input
+                        key={props.util.key}
+                        label="Additional Display Field"
+                        onchange={props.changeAdditionalDisplayField}
+                        value={additionalField}
+                    ></lightning-input>
+                </template>
             </div>
         </div>
         <div class="slds-col slds-grid slds-grid_align-end">
