@@ -13,7 +13,10 @@ import {
     CHANGE_ADDITIONAL_DISPLAY_FIELD,
     CHANGE_PRIMARY_MATCHING_FIELD,
     CHANGE_PRIMARY_MATCHING_FIELD_MODE,
-    CHANGE_ADDITIONAL_MATCHING_FIELD
+    CHANGE_ADDITIONAL_MATCHING_FIELD,
+    TOGGLE_DISPLAY_INFO,
+    TOGGLE_FILTERS,
+    TOGGLE_MATCHING_INFO
 } from "./constants";
 
 export const setConfig = (config) => {
@@ -116,6 +119,27 @@ export const changePrimaryMatchingFieldMode = (event) => {
 export const changeAdditionalMatchingField = (event) => {
     return {
         type: CHANGE_ADDITIONAL_MATCHING_FIELD,
+        payload: event
+    };
+};
+
+export const toggleFilters = (event) => {
+    return {
+        type: TOGGLE_FILTERS,
+        payload: event
+    };
+};
+
+export const toggleDisplayInfo = (event) => {
+    return {
+        type: TOGGLE_DISPLAY_INFO,
+        payload: event
+    };
+};
+
+export const toggleMatchingInfo = (event) => {
+    return {
+        type: TOGGLE_MATCHING_INFO,
         payload: event
     };
 };

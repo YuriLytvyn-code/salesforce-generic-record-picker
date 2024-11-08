@@ -1,108 +1,151 @@
 <template>
     <div class="slds-grid slds-grid_vertical">
-        <div class="slds-col slds-m-vertical_xx-small">
+        <div class="slds-col">
             <lightning-input
                 label="Label"
                 onchange={props.changeLabel}
                 value={props.config.label}
             ></lightning-input>
         </div>
-        <div class="slds-col slds-m-vertical_xx-small">
+        <div class="slds-col">
             <lightning-input
                 label="Placeholder"
                 onchange={props.changePlaceholder}
                 value={props.config.placeholder}
             ></lightning-input>
         </div>
-        <div class="slds-col slds-m-vertical_xx-small">
-            <lightning-combobox
+        <div class="slds-col">
+            <!-- <lightning-combobox
                 label="Object API Name"
                 onchange={props.changeObjectApiName}
                 value={props.config.objectApiName}
-            ></lightning-combobox>
+            ></lightning-combobox> -->
+            <lightning-input
+                label="Object API Name"
+                onchange={props.changeObjectApiName}
+                value={props.config.objectApiName}
+            ></lightning-input>
         </div>
-        <div class="slds-col">
-            <div class="slds-col slds-m-vertical_xx-small">
-                <div class="slds-grid slds-grid_vertical">
-                    <div class="slds-col">
-                        <lightning-input
-                            label="Filter Logic"
-                            value={props.config.filter.filterLogic}
-                            onchange={props.changeFilterLogic}
-                        ></lightning-input>
-                    </div>
-                    <div class="slds-col slds-grid slds-grid_vertical">
-                        <template
-                            lwc:if={props.config.filter}
-                            for:each={props.config.filter.criteria}
-                            for:item="criteria"
+        <div class="slds-col slds-grid slds-grid_align-end">
+            <div class="slds-col">
+                <lightning-input
+                    lwc:if={props.config.includeFilters}
+                    type="toggle"
+                    label="Enable Filters"
+                    checked
+                    onchange={props.toggleFilters}
+                ></lightning-input>
+                <lightning-input
+                    lwc:else
+                    type="toggle"
+                    label="Enable Filters"
+                    onchange={props.toggleFilters}
+                ></lightning-input>
+            </div>
+        </div>
+        <div
+            lwc:if={props.config.includeFilters}
+            class="slds-col"
+        >
+            <div class="slds-grid slds-grid_vertical">
+                <div class="slds-col">
+                    <lightning-input
+                        label="Filter Logic"
+                        value={props.config.filter.filterLogic}
+                        onchange={props.changeFilterLogic}
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-grid slds-grid_vertical">
+                    <template
+                        lwc:if={props.config.filter}
+                        for:each={props.config.filter.criteria}
+                        for:item="criteria"
+                    >
+                        <div
+                            class="slds-col"
+                            key={criteria.index}
                         >
-                            <div
-                                class="slds-col"
-                                key={criteria.index}
-                            >
-                                <div class="slds-box">
-                                    <div class="slds-grid slds-grid_vertical">
+                            <div class="slds-box">
+                                <div class="slds-grid slds-grid_vertical">
+                                    <div class="slds-col">
+                                        <lightning-input
+                                            data-index={criteria.index}
+                                            label="Field"
+                                            value={criteria.fieldPath}
+                                            onchange={props.changeFilterCriteriaFieldPath}
+                                        ></lightning-input>
+                                    </div>
+                                    <div class="slds-col">
+                                        <lightning-input
+                                            data-index={criteria.index}
+                                            label="Operator"
+                                            value={criteria.operator}
+                                            onchange={props.changeFilterCriteriaOperator}
+                                        ></lightning-input>
+                                    </div>
+                                    <div class="slds-col">
+                                        <lightning-input
+                                            data-index={criteria.index}
+                                            label="Value"
+                                            value={criteria.value}
+                                            onchange={props.changeFilterCriteriaValue}
+                                        ></lightning-input>
+                                    </div>
+                                    <div
+                                        class="slds-col slds-grid slds-grid_vertical-align-center"
+                                    >
                                         <div class="slds-col">
-                                            <lightning-input
-                                                data-index={criteria.index}
-                                                label="Field"
-                                                value={criteria.fieldPath}
-                                                onchange={props.changeFilterCriteriaFieldPath}
-                                            ></lightning-input>
-                                        </div>
-                                        <div class="slds-col">
-                                            <lightning-input
-                                                data-index={criteria.index}
-                                                label="Operator"
-                                                value={criteria.operator}
-                                                onchange={props.changeFilterCriteriaOperator}
-                                            ></lightning-input>
-                                        </div>
-                                        <div class="slds-col">
-                                            <lightning-input
-                                                data-index={criteria.index}
-                                                label="Value"
-                                                value={criteria.value}
-                                                onchange={props.changeFilterCriteriaValue}
-                                            ></lightning-input>
-                                        </div>
-                                        <div
-                                            class="slds-col slds-grid slds-grid_vertical-align-center"
-                                        >
-                                            <div class="slds-col">
-                                                <div>
-                                                    <lightning-badge
-                                                        label={criteria.index}
-                                                        class="slds-badge_inverse"
-                                                    ></lightning-badge>
-                                                </div>
+                                            <div>
+                                                <lightning-badge
+                                                    label={criteria.index}
+                                                    class="slds-badge_inverse"
+                                                ></lightning-badge>
                                             </div>
-                                            <div class="slds-col">
-                                                <lightning-button-icon
-                                                    data-index={criteria.index}
-                                                    icon-name="utility:delete"
-                                                    alternative-text="Delete"
-                                                    title="Delete"
-                                                    onclick={props.removeFilterCriteria}
-                                                ></lightning-button-icon>
-                                            </div>
+                                        </div>
+                                        <div class="slds-col">
+                                            <lightning-button-icon
+                                                data-index={criteria.index}
+                                                icon-name="utility:delete"
+                                                alternative-text="Delete"
+                                                title="Delete"
+                                                onclick={props.removeFilterCriteria}
+                                            ></lightning-button-icon>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </template>
-                    </div>
-                    <div class="slds-col">
-                        <lightning-button
-                            label="Add filter criteria"
-                            onclick={props.addFilterCriteria}
-                        ></lightning-button>
-                    </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="slds-col">
+                    <lightning-button
+                        label="Add filter criteria"
+                        onclick={props.addFilterCriteria}
+                    ></lightning-button>
                 </div>
             </div>
         </div>
-        <div class="slds-col">
+        <div class="slds-col slds-grid slds-grid_align-end">
+            <div class="slds-col">
+                <lightning-input
+                    lwc:if={props.config.includeDisplayInfo}
+                    type="toggle"
+                    label="Enable Display Info"
+                    checked
+                    onchange={props.toggleDisplayInfo}
+                ></lightning-input>
+                <lightning-input
+                    lwc:else
+                    type="toggle"
+                    label="Enable Display Info"
+                    onchange={props.toggleDisplayInfo}
+                ></lightning-input>
+            </div>
+        </div>
+        <div
+            lwc:if={props.config.includeDisplayInfo}
+            class="slds-col"
+        >
             <div class="slds-grid slds-grid_vertical">
                 <lightning-input
                     label="Primary Display Field"
@@ -116,28 +159,54 @@
                 ></lightning-input>
             </div>
         </div>
-        <div class="slds-col">
+        <div class="slds-col slds-grid slds-grid_align-end">
+            <div class="slds-col">
+                <lightning-input
+                    lwc:if={props.config.includeMatchingInfo}
+                    type="toggle"
+                    label="Enable Matching Info"
+                    checked
+                    onchange={props.toggleMatchingInfo}
+                ></lightning-input>
+                <lightning-input
+                    lwc:else
+                    type="toggle"
+                    label="Enable Matching Info"
+                    onchange={props.toggleMatchingInfo}
+                ></lightning-input>
+            </div>
+        </div>
+        <div
+            lwc:if={props.config.includeMatchingInfo}
+            class="slds-col"
+        >
             <div class="slds-grid slds-grid_vertical">
                 <div class="slds-col">
                     <lightning-input
                         label="Matching Primary Field"
                         onchange={props.changePrimaryMatchingField}
-                        value={props.config.matchingInfo.primaryField}
+                        value={props.config.matchingInfo.primaryField.fieldPath}
                     ></lightning-input>
                 </div>
                 <div class="slds-col">
                     <lightning-input
                         label="Matching Primary Field Mode"
                         onchange={props.changePrimaryMatchingFieldMode}
-                        value={props.config.matchingInfo.primaryFieldMode}
+                        value={props.config.matchingInfo.primaryField.mode}
                     ></lightning-input>
                 </div>
                 <div class="slds-col">
-                    <lightning-input
-                        label="Matching Additional Field"
-                        onchange={props.changeAdditionalMatchingField}
-                        value={props.config.matchingInfo.additionalField}
-                    ></lightning-input>
+                    <template
+                        for:each={props.config.matchingInfo.additionalFields}
+                        for:item="additionalField"
+                    >
+                        <lightning-input
+                            key={props.util.key}
+                            label="Matching Additional Field"
+                            onchange={props.changeAdditionalMatchingField}
+                            value={additionalField.fieldPath}
+                        ></lightning-input>
+                    </template>
                 </div>
             </div>
         </div>

@@ -13,32 +13,23 @@ import {
     CHANGE_ADDITIONAL_DISPLAY_FIELD,
     CHANGE_PRIMARY_MATCHING_FIELD,
     CHANGE_PRIMARY_MATCHING_FIELD_MODE,
-    CHANGE_ADDITIONAL_MATCHING_FIELD
+    CHANGE_ADDITIONAL_MATCHING_FIELD,
+    TOGGLE_DISPLAY_INFO,
+    TOGGLE_FILTERS,
+    TOGGLE_MATCHING_INFO
 } from "./constants";
 
 const defaultConfig = {
     label: "Accounts",
     placeholder: "Search Accounts...",
-    objectApiName: "Account",
-    filter: { criteria: [] },
-    displayInfo: {},
-    matchingInfo: {}
+    objectApiName: "Account"
 };
 
 const configReducer = (config = defaultConfig, action) => {
     switch (action.type) {
         case SET_CONFIG:
             return {
-                ...(action.payload ?? config),
-                filter: {
-                    ...(action.payload?.filter || config.filter)
-                },
-                displayInfo: {
-                    ...(action.payload?.displayInfo || config.displayInfo)
-                },
-                matchingInfo: {
-                    ...(action.payload?.matchingInfo || config.matchingInfo)
-                }
+                ...(action.payload ?? config)
             };
         case CHANGE_LABEL:
             return {
@@ -152,37 +143,90 @@ const configReducer = (config = defaultConfig, action) => {
             return {
                 ...config,
                 matchingInfo: {
-                    primaryField: action.payload.target.value,
-                    primaryFieldMode: config.matchingInfo?.primaryFieldMode,
-                    additionalField: config.matchingInfo?.additionalField,
-                    additionalFields: config.matchingInfo?.additionalFields
+                    ...config.matchingInfo,
+                    primaryField: {
+                        ...config.matchingInfo.primaryField,
+                        fieldPath: action.payload.target.value
+                    }
                 }
             };
         case CHANGE_PRIMARY_MATCHING_FIELD_MODE:
             return {
                 ...config,
                 matchingInfo: {
-                    primaryField: config.matchingInfo?.primaryField,
-                    primaryFieldMode: action.payload.target.value,
-                    additionalField: config.matchingInfo?.additionalField,
-                    additionalFields: config.matchingInfo?.additionalFields
+                    ...config.matchingInfo,
+                    primaryField: {
+                        ...config.matchingInfo.primaryField,
+                        mode: action.payload.target.value
+                    }
                 }
             };
         case CHANGE_ADDITIONAL_MATCHING_FIELD:
             return {
                 ...config,
                 matchingInfo: {
-                    primaryField: config.matchingInfo?.primaryField,
-                    primaryFieldMode: config.matchingInfo?.primaryFieldMode,
-                    additionalField: action.payload.target.value,
-                    additionalFields: [action.payload.target.value]
+                    primaryField: { ...config.matchingInfo?.primaryField },
+                    additionalFields: [
+                        { fieldPath: action.payload.target.value }
+                    ]
                 }
+            };
+        case TOGGLE_DISPLAY_INFO:
+            if (!action.payload.target.checked) {
+                delete config.displayInfo;
+            } else {
+                config.displayInfo = {
+                    primaryField: "",
+                    additionalField: "",
+                    additionalFields: []
+                };
+            }
+
+            return {
+                ...config,
+                includeDisplayInfo: action.payload.target.checked
+            };
+        case TOGGLE_FILTERS:
+            if (!action.payload.target.checked) {
+                delete config.filter;
+            } else {
+                config.filter = {
+                    criteria: [],
+                    filterLogic: ""
+                };
+            }
+
+            return {
+                ...config,
+                includeFilters: action.payload.target.checked
+            };
+        case TOGGLE_MATCHING_INFO:
+            if (!action.payload.target.checked) {
+                delete config.matchingInfo;
+            } else {
+                config.matchingInfo = {
+                    primaryField: { fieldPath: "", mode: "" },
+                    additionalFields: [{ fieldPath: "" }]
+                };
+            }
+
+            return {
+                ...config,
+                includeMatchingInfo: action.payload.target.checked
             };
         default:
             return config;
     }
 };
 
+const utilReducer = (util = {}, action) => {
+    switch (action.type) {
+        default:
+            return { ...util, key: "1" };
+    }
+};
+
 export default {
-    config: configReducer
+    config: configReducer,
+    util: utilReducer
 };

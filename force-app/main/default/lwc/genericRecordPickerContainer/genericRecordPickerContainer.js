@@ -15,18 +15,7 @@ export default class GenericRecordPickerContainer extends LightningElement {
         return JSON.stringify(this._config);
     }
 
-    _config = {
-        label: "Accounts",
-        placeholder: "Search Accounts...",
-        objectApiName: "Account",
-        displayInfo: {
-            primaryField: "Name"
-        },
-        matchingInfo: {
-            primaryField: { fieldPath: "Name", mode: "contains" },
-            additionalFields: [{ fieldPath: "Website" }]
-        }
-    };
+    _config = {};
 
     initialize() {
         let logger;

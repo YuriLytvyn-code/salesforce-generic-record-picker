@@ -38,7 +38,7 @@ export default class RecordPickerConfigurator extends Redux(LightningElement) {
     }
 
     mapStateToProps(state) {
-        return { config: state.config };
+        return { config: state.config, util: state.util };
     }
 
     mapDispatchToProps() {
@@ -59,7 +59,11 @@ export default class RecordPickerConfigurator extends Redux(LightningElement) {
             changePrimaryMatchingField: actions.changePrimaryMatchingField,
             changePrimaryMatchingFieldMode:
                 actions.changePrimaryMatchingFieldMode,
-            changeAdditionalMatchingField: actions.changeAdditionalMatchingField
+            changeAdditionalMatchingField:
+                actions.changeAdditionalMatchingField,
+            toggleDisplayInfo: actions.toggleDisplayInfo,
+            toggleFilters: actions.toggleFilters,
+            toggleMatchingInfo: actions.toggleMatchingInfo
         };
     }
 }
