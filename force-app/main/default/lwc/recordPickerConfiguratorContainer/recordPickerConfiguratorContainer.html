@@ -3,6 +3,9 @@
         oninit={initialize}
         store={store}
     >
-        <c-record-picker-configurator lwc:ref="configurator" input-variables={_inputVariables}></c-record-picker-configurator>
+        <c-record-picker-configurator
+            lwc:ref="configurator"
+            config={config}
+        ></c-record-picker-configurator>
     </c-provider>
 </template>

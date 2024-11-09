@@ -15,6 +15,12 @@ export default class RecordPickerConfiguratorContainer extends LightningElement 
         this._inputVariables = variables || [];
     }
 
+    get config() {
+        return this._inputVariables?.find(
+            (variable) => variable.name === "config"
+        )?.value;
+    }
+
     _inputVariables = [];
 
     initialize() {

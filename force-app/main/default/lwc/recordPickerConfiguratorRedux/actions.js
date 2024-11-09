@@ -16,7 +16,8 @@ import {
     CHANGE_ADDITIONAL_MATCHING_FIELD,
     TOGGLE_DISPLAY_INFO,
     TOGGLE_FILTERS,
-    TOGGLE_MATCHING_INFO
+    TOGGLE_MATCHING_INFO,
+    SET_CONFIGURATOR_INST
 } from "./constants";
 
 export const setConfig = (config) => {
@@ -143,3 +144,10 @@ export const toggleMatchingInfo = (event) => {
         payload: event
     };
 };
+
+export const setConfiguratorInst = (thisArg) => {
+    return {
+        type: SET_CONFIGURATOR_INST,
+        payload: thisArg
+    };
+}
