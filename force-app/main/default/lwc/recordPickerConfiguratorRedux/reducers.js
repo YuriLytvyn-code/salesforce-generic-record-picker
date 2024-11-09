@@ -28,20 +28,32 @@ const defaultConfig = {
 
 let configurator;
 
-function dispatchEditorChangeEvent(target, key, descriptor) {
-    const originalMethod = descriptor.value;
+function dispatchEditorChangeEventDecorate(f) {
+    return function wrapper(...args) {
+        const res = f.apply(this, args);
+        if (configurator) {
+            const valueChangedEvent = new CustomEvent(
+                "configuration_editor_input_value_changed",
+                {
+                    bubbles: true,
+                    cancelable: false,
+                    composed: true,
+                    detail: {
+                        name: "config",
+                        newValue: JSON.stringify(res),
+                        newValueDataType: "String"
+                    }
+                }
+            );
 
-    descriptor.value = function (...args) {
-        
-        const result = originalMethod.apply(this, args);
-        return result;
+            configurator.dispatchEvent(valueChangedEvent);
+        }
+        return res;
     };
-
-    return descriptor;
 }
 
-const configReducer = (config = defaultConfig, action) => {
-    let resultConfig = ((config = defaultConfig, action) => {
+const configReducer = dispatchEditorChangeEventDecorate(
+    (config = defaultConfig, action) => {
         switch (action.type) {
             case SET_CONFIG:
                 return {
@@ -232,28 +244,8 @@ const configReducer = (config = defaultConfig, action) => {
             default:
                 return config;
         }
-    })(config, action);
-
-    if (configurator) {
-        const valueChangedEvent = new CustomEvent(
-            "configuration_editor_input_value_changed",
-            {
-                bubbles: true,
-                cancelable: false,
-                composed: true,
-                detail: {
-                    name: "config",
-                    newValue: JSON.stringify(resultConfig),
-                    newValueDataType: "String"
-                }
-            }
-        );
-
-        configurator.dispatchEvent(valueChangedEvent);
     }
-
-    return resultConfig;
-};
+);
 
 const utilReducer = (util = {}, action) => {
     switch (action.type) {
