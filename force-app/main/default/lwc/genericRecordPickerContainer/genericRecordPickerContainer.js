@@ -5,6 +5,7 @@ import { reducers } from "c/genericRecordPickerRedux";
 
 export default class GenericRecordPickerContainer extends LightningElement {
     @api store;
+    @api recordId;
 
     @api
     set config(value) {

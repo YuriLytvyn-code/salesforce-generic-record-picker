@@ -5,10 +5,13 @@ import { actions } from "c/genericRecordPickerRedux";
 
 export default class GenericRecordPicker extends Redux(LightningElement) {
     @api config;
+    @api recordId;
 
     connectedCallback() {
         super.connectedCallback();
         this.props.setRecordPickerConfig(this.config);
+        this.props.setRecordPickerInst(this);
+        this.props.setRecordPickerValue(this.recordId);
     }
 
     mapStateToProps(state) {
@@ -23,7 +26,9 @@ export default class GenericRecordPicker extends Redux(LightningElement) {
         return {
             changeRecordPickerValue: actions.changeRecordPickerValue,
             setRecordPickerError: actions.setRecordPickerError,
-            setRecordPickerConfig: actions.setRecordPickerConfig
+            setRecordPickerConfig: actions.setRecordPickerConfig,
+            setRecordPickerValue: actions.setRecordPickerValue,
+            setRecordPickerInst: actions.setRecordPickerInst
         };
     }
 }

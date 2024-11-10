@@ -3,6 +3,9 @@
         oninit={initialize}
         store={store}
     >
-        <c-generic-record-picker config={_config}></c-generic-record-picker>
+        <c-generic-record-picker
+            config={_config}
+            record-id={recordId}
+        ></c-generic-record-picker>
     </c-provider>
 </template>
