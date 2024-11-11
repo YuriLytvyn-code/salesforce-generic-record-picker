@@ -17,7 +17,10 @@ import {
     TOGGLE_DISPLAY_INFO,
     TOGGLE_FILTERS,
     TOGGLE_MATCHING_INFO,
-    SET_CONFIGURATOR_INST
+    SET_CONFIGURATOR_INST,
+    SET_BUILDER_CONTEXT,
+    SET_RECORD_ID,
+    SET_RECORD_FROM_EVENT
 } from "./constants";
 
 const defaultConfig = {
@@ -28,7 +31,12 @@ const defaultConfig = {
 
 let configurator;
 
-function dispatchEditorChangeEventDecorate(f) {
+function dispatchEditorChangeEventDecorate(
+    attrName,
+    dataType = "String",
+    stringify = false,
+    f
+) {
     return function wrapper(...args) {
         const res = f.apply(this, args);
         if (configurator) {
@@ -39,9 +47,9 @@ function dispatchEditorChangeEventDecorate(f) {
                     cancelable: false,
                     composed: true,
                     detail: {
-                        name: "config",
-                        newValue: JSON.stringify(res),
-                        newValueDataType: "String"
+                        name: attrName,
+                        newValue: stringify ? JSON.stringify(res) : res,
+                        newValueDataType: dataType
                     }
                 }
             );
@@ -53,6 +61,9 @@ function dispatchEditorChangeEventDecorate(f) {
 }
 
 const configReducer = dispatchEditorChangeEventDecorate(
+    "config",
+    "String",
+    true,
     (config = defaultConfig, action) => {
         switch (action.type) {
             case SET_CONFIG:
@@ -247,6 +258,15 @@ const configReducer = dispatchEditorChangeEventDecorate(
     }
 );
 
+const builderContexReducer = (builderContext = {}, action) => {
+    switch (action.type) {
+        case SET_BUILDER_CONTEXT:
+            return action.payload;
+        default:
+            return builderContext;
+    }
+};
+
 const utilReducer = (util = {}, action) => {
     switch (action.type) {
         default:
@@ -254,7 +274,23 @@ const utilReducer = (util = {}, action) => {
     }
 };
 
+const selectedRecordIdReducer = dispatchEditorChangeEventDecorate(
+    "recordId",
+    "String",
+    false,
+    (selectedRecordId = null, action) => {
+        switch (action.type) {
+            case SET_RECORD_ID:
+                return action.payload ?? null;
+            default:
+                return selectedRecordId;
+        }
+    }
+);
+
 export default {
     config: configReducer,
-    util: utilReducer
+    util: utilReducer,
+    builderContext: builderContexReducer,
+    selectedRecordId: selectedRecordIdReducer
 };

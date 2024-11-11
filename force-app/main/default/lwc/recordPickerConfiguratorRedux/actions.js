@@ -17,7 +17,9 @@ import {
     TOGGLE_DISPLAY_INFO,
     TOGGLE_FILTERS,
     TOGGLE_MATCHING_INFO,
-    SET_CONFIGURATOR_INST
+    SET_CONFIGURATOR_INST,
+    SET_BUILDER_CONTEXT,
+    SET_RECORD_ID
 } from "./constants";
 
 export const setConfig = (config) => {
@@ -150,4 +152,25 @@ export const setConfiguratorInst = (thisArg) => {
         type: SET_CONFIGURATOR_INST,
         payload: thisArg
     };
-}
+};
+
+export const setBuilderContext = (builderContext) => {
+    return {
+        type: SET_BUILDER_CONTEXT,
+        payload: builderContext
+    };
+};
+
+export const setRecordId = (recordId) => {
+    return {
+        type: SET_RECORD_ID,
+        payload: recordId
+    };
+};
+
+export const setRecordIdFromEvent = (event) => {
+    return {
+        type: SET_RECORD_ID,
+        payload: event.target.value
+    };
+};

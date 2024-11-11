@@ -21,6 +21,13 @@
                 value={props.config.objectApiName}
             ></lightning-input>
         </div>
+        <div class="slds-col">
+            <lightning-input
+                label="Selected Record Id"
+                value={props.selectedRecordId}
+                onchange={props.setRecordIdFromEvent}
+            ></lightning-input>
+        </div>
         <div class="slds-col slds-grid slds-grid_align-end">
             <div class="slds-col">
                 <lightning-input

@@ -5,6 +5,7 @@ import { reducers } from "c/recordPickerConfiguratorRedux";
 
 export default class RecordPickerConfiguratorContainer extends LightningElement {
     @api store;
+    @api builderContext;
 
     @api
     get inputVariables() {
@@ -15,13 +16,23 @@ export default class RecordPickerConfiguratorContainer extends LightningElement 
         this._inputVariables = variables || [];
     }
 
+    _inputVariables = [];
+
     get config() {
         return this._inputVariables?.find(
             (variable) => variable.name === "config"
         )?.value;
     }
 
-    _inputVariables = [];
+    get recordId() {
+        return this._inputVariables?.find(
+            (variable) => variable.name === "recordId"
+        )?.value;
+    }
+
+    connectedCallback() {
+        console.log(this.builderContext);
+    }
 
     initialize() {
         let logger;
