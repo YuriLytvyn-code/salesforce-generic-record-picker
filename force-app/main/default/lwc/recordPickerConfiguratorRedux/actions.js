@@ -174,3 +174,10 @@ export const setRecordIdFromEvent = (event) => {
         payload: event.target.value
     };
 };
+
+export const setRecordIdFromResource = (event) => {
+    return {
+        type: SET_RECORD_ID,
+        payload: event.detail.newValue
+    };
+}

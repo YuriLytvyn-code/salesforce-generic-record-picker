@@ -19,8 +19,7 @@ import {
     TOGGLE_MATCHING_INFO,
     SET_CONFIGURATOR_INST,
     SET_BUILDER_CONTEXT,
-    SET_RECORD_ID,
-    SET_RECORD_FROM_EVENT
+    SET_RECORD_ID
 } from "./constants";
 
 const defaultConfig = {

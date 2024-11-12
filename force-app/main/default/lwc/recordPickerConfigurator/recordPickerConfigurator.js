@@ -11,10 +11,10 @@ export default class RecordPickerConfigurator extends Redux(LightningElement) {
     connectedCallback() {
         super.connectedCallback();
 
+        this.props.setRecordId(this.recordId);
         if (this.config) this.props.setConfig(JSON.parse(this.config));
         this.props.setConfiguratorInst(this);
         this.props.setBuilderContext(this.builderContext);
-        this.props.setRecordId(this.recordId);
     }
 
     mapStateToProps(state) {
