@@ -19,7 +19,8 @@ import {
     TOGGLE_MATCHING_INFO,
     SET_CONFIGURATOR_INST,
     SET_BUILDER_CONTEXT,
-    SET_RECORD_ID
+    SET_RECORD_ID,
+    INIT_OBJECTS_OPTIONS
 } from "./constants";
 
 const defaultConfig = {
@@ -287,9 +288,24 @@ const selectedRecordIdReducer = dispatchEditorChangeEventDecorate(
     }
 );
 
+const sobjectTypesReducer = (sobjectTypes = [], action) => {
+    switch (action.type) {
+        case INIT_OBJECTS_OPTIONS:
+            return (
+                action.payload?.map((sobjType) => ({
+                    label: sobjType,
+                    value: sobjType
+                })) ?? []
+            );
+        default:
+            return sobjectTypes;
+    }
+};
+
 export default {
     config: configReducer,
     util: utilReducer,
     builderContext: builderContexReducer,
-    selectedRecordId: selectedRecordIdReducer
+    selectedRecordId: selectedRecordIdReducer,
+    sobjectTypes: sobjectTypesReducer
 };

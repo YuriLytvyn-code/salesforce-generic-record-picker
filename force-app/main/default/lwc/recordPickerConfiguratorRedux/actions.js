@@ -19,8 +19,12 @@ import {
     TOGGLE_MATCHING_INFO,
     SET_CONFIGURATOR_INST,
     SET_BUILDER_CONTEXT,
-    SET_RECORD_ID
+    SET_RECORD_ID,
+    INIT_OBJECTS_OPTIONS,
+    ERROR
 } from "./constants";
+
+import getSObjectTypes from "@salesforce/apex/RecordPickerConfiguratorController.getSObjectTypes";
 
 export const setConfig = (config) => {
     return {
@@ -180,4 +184,22 @@ export const setRecordIdFromResource = (event) => {
         type: SET_RECORD_ID,
         payload: event.detail.newValue
     };
-}
+};
+
+export const initSObjectsTypes = () => {
+    return (dispatch) => {
+        getSObjectTypes()
+            .then((result) => {
+                dispatch({
+                    type: INIT_OBJECTS_OPTIONS,
+                    payload: JSON.parse(result)
+                });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: ERROR,
+                    payload: error
+                });
+            });
+    };
+};

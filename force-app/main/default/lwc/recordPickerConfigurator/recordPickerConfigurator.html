@@ -20,6 +20,12 @@
                 onchange={props.changeObjectApiName}
                 value={props.config.objectApiName}
             ></lightning-input>
+            <lightning-combobox
+                label="Object API Name"
+                onchange={props.changeObjectApiName}
+                options={props.sobjectTypes}
+                value={props.config.objectApiName}
+            ></lightning-combobox>
         </div>
         <div class="slds-col">
             <lightning-input
