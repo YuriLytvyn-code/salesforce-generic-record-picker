@@ -20,7 +20,8 @@ import {
     SET_CONFIGURATOR_INST,
     SET_BUILDER_CONTEXT,
     SET_RECORD_ID,
-    INIT_OBJECTS_OPTIONS
+    INIT_OBJECTS_OPTIONS,
+    INIT_FIELDS_OPTIONS
 } from "./constants";
 
 const defaultConfig = {
@@ -302,10 +303,101 @@ const sobjectTypesReducer = (sobjectTypes = [], action) => {
     }
 };
 
+const sobjectFieldsReducer = (sobjectFields = [], action) => {
+    switch (action.type) {
+        case INIT_FIELDS_OPTIONS:
+            return (
+                action.payload?.map((sobjField) => ({
+                    label: sobjField,
+                    value: sobjField
+                })) ?? []
+            );
+        default:
+            return sobjectFields;
+    }
+};
+
+const criteriaOperatorOptionsReducer = (
+    criteriaOperatorOptions = [
+        {
+            label: "Equal to",
+            value: "eq"
+        },
+        {
+            label: "Not Equal to",
+            value: "ne"
+        },
+        {
+            label: "Less Than",
+            value: "lt"
+        },
+        {
+            label: "Greater Than",
+            value: "gt"
+        },
+        {
+            label: "Less Than or Equal to",
+            value: "lte"
+        },
+        {
+            label: "Greater Than or Equal to",
+            value: "gte"
+        },
+        {
+            label: "In",
+            value: "in"
+        },
+        {
+            label: "Not In",
+            value: "nin"
+        },
+        {
+            label: "Like",
+            value: "like"
+        },
+        {
+            label: "Includes",
+            value: "includes"
+        },
+        {
+            label: "Exclues",
+            value: "excludes"
+        }
+    ],
+    action
+) => {
+    switch (action.type) {
+        default:
+            return criteriaOperatorOptions;
+    }
+};
+
+const matchingInfoModeOptionsReducer = (
+    matchingInfoModeOptions = [
+        {
+            label: "Starts With",
+            value: "startsWith"
+        },
+        {
+            label: "Contains",
+            value: "contains"
+        }
+    ],
+    action
+) => {
+    switch (action.type) {
+        default:
+            return matchingInfoModeOptions;
+    }
+};
+
 export default {
     config: configReducer,
     util: utilReducer,
     builderContext: builderContexReducer,
     selectedRecordId: selectedRecordIdReducer,
-    sobjectTypes: sobjectTypesReducer
+    sobjectTypes: sobjectTypesReducer,
+    sobjectFields: sobjectFieldsReducer,
+    criteriaOperatorOptions: criteriaOperatorOptionsReducer,
+    matchingInfoModeOptions: matchingInfoModeOptionsReducer
 };

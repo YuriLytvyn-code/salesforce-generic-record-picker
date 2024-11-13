@@ -21,10 +21,12 @@ import {
     SET_BUILDER_CONTEXT,
     SET_RECORD_ID,
     INIT_OBJECTS_OPTIONS,
-    ERROR
+    ERROR,
+    INIT_FIELDS_OPTIONS
 } from "./constants";
 
 import getSObjectTypes from "@salesforce/apex/RecordPickerConfiguratorController.getSObjectTypes";
+import getFieldApiNames from "@salesforce/apex/RecordPickerConfiguratorController.getFieldApiNames";
 
 export const setConfig = (config) => {
     return {
@@ -192,6 +194,24 @@ export const initSObjectsTypes = () => {
             .then((result) => {
                 dispatch({
                     type: INIT_OBJECTS_OPTIONS,
+                    payload: JSON.parse(result)
+                });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: ERROR,
+                    payload: error
+                });
+            });
+    };
+};
+
+export const initSobjectFieldNames = () => {
+    return (dispatch, getState) => {
+        getFieldApiNames({ sObjectType: getState().config.objectApiName })
+            .then((result) => {
+                dispatch({
+                    type: INIT_FIELDS_OPTIONS,
                     payload: JSON.parse(result)
                 });
             })

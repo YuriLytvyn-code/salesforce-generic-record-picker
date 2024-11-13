@@ -16,16 +16,11 @@ export default class RecordPickerConfigurator extends Redux(LightningElement) {
         this.props.setConfiguratorInst(this);
         this.props.setBuilderContext(this.builderContext);
         this.props.initSObjectsTypes();
+        this.props.initSobjectFieldNames();
     }
 
     mapStateToProps(state) {
-        return {
-            config: state.config,
-            util: state.util,
-            builderContext: state.builderContext,
-            selectedRecordId: state.selectedRecordId,
-            sobjectTypes: state.sobjectTypes
-        };
+        return { ...state };
     }
 
     mapDispatchToProps() {

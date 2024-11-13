@@ -14,4 +14,24 @@ public with sharing class RecordPickerConfiguratorController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled
+    public static String getFieldApiNames(String sObjectType) {
+        try {
+            SObjectType accountType = Schema.getGlobalDescribe()
+                .get(sObjectType);
+            Map<String, Schema.SObjectField> mfields = accountType.getDescribe()
+                .fields.getMap();
+
+            Set<String> fieldApiNames = new Set<String>();
+
+            for (Schema.SObjectField field : mfields.values()) {
+                fieldApiNames.add(field.getDescribe().getName());
+            }
+
+            return JSON.serialize(fieldApiNames);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }
