@@ -71,6 +71,44 @@
                         >
                             <div class="slds-box">
                                 <div class="slds-grid slds-grid_vertical">
+                                    <div
+                                        class="slds-col slds-grid slds-grid_vertical-align-center"
+                                    >
+                                        <div class="">
+                                            <div>
+                                                <lightning-badge
+                                                    label={criteria.index}
+                                                    class="slds-badge_inverse"
+                                                ></lightning-badge>
+                                            </div>
+                                        </div>
+                                        <div class="slds-col"></div>
+                                        <div class="">
+                                            <lightning-button-icon
+                                                data-index={criteria.index}
+                                                data-direction="-1"
+                                                icon-name="utility:arrowup"
+                                                alternative-text="Move up"
+                                                title="Move up"
+                                                onclick={props.moveCriteria}
+                                            ></lightning-button-icon>
+                                            <lightning-button-icon
+                                                data-index={criteria.index}
+                                                data-direction="1"
+                                                icon-name="utility:arrowdown"
+                                                alternative-text="Move down"
+                                                title="Move down"
+                                                onclick={props.moveCriteria}
+                                            ></lightning-button-icon>
+                                            <lightning-button-icon
+                                                data-index={criteria.index}
+                                                icon-name="utility:delete"
+                                                alternative-text="Delete"
+                                                title="Delete"
+                                                onclick={props.removeFilterCriteria}
+                                            ></lightning-button-icon>
+                                        </div>
+                                    </div>
                                     <div class="slds-col">
                                         <lightning-combobox
                                             data-index={criteria.index}
@@ -97,33 +135,12 @@
                                             onchange={props.changeFilterCriteriaValue}
                                         ></lightning-input>
                                     </div>
-                                    <div
-                                        class="slds-col slds-grid slds-grid_vertical-align-center"
-                                    >
-                                        <div class="slds-col">
-                                            <div>
-                                                <lightning-badge
-                                                    label={criteria.index}
-                                                    class="slds-badge_inverse"
-                                                ></lightning-badge>
-                                            </div>
-                                        </div>
-                                        <div class="slds-col">
-                                            <lightning-button-icon
-                                                data-index={criteria.index}
-                                                icon-name="utility:delete"
-                                                alternative-text="Delete"
-                                                title="Delete"
-                                                onclick={props.removeFilterCriteria}
-                                            ></lightning-button-icon>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </template>
                 </div>
-                <div class="slds-col">
+                <div class="slds-col slds-grid slds-grid_align-end slds-m-top_xx-small">
                     <lightning-button
                         label="Add filter criteria"
                         onclick={props.addFilterCriteria}

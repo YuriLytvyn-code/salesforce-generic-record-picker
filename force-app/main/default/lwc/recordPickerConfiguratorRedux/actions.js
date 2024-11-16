@@ -22,7 +22,8 @@ import {
     SET_RECORD_ID,
     INIT_OBJECTS_OPTIONS,
     ERROR,
-    INIT_FIELDS_OPTIONS
+    INIT_FIELDS_OPTIONS,
+    MOVE_CRITERIA
 } from "./constants";
 
 import getSObjectTypes from "@salesforce/apex/RecordPickerConfiguratorController.getSObjectTypes";
@@ -221,5 +222,15 @@ export const initSobjectFieldNames = () => {
                     payload: error
                 });
             });
+    };
+};
+
+export const moveCriteria = (event) => {
+    return {
+        type: MOVE_CRITERIA,
+        payload: {
+            criteriaIndex: parseInt(event.currentTarget.dataset.index),
+            direction: parseInt(event.currentTarget.dataset.direction)
+        }
     };
 };

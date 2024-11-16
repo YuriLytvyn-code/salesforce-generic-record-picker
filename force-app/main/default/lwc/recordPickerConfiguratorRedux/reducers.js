@@ -21,7 +21,8 @@ import {
     SET_BUILDER_CONTEXT,
     SET_RECORD_ID,
     INIT_OBJECTS_OPTIONS,
-    INIT_FIELDS_OPTIONS
+    INIT_FIELDS_OPTIONS,
+    MOVE_CRITERIA
 } from "./constants";
 
 const defaultConfig = {
@@ -110,6 +111,48 @@ const configReducer = dispatchEditorChangeEventDecorate(
                     action.payload.target.dataset.index - 1,
                     1
                 );
+
+                return {
+                    ...config,
+                    filter: {
+                        ...config.filter,
+                        criteria: [...config.filter.criteria].map(
+                            (criteria, index) => ({
+                                ...criteria,
+                                index: index + 1
+                            })
+                        )
+                    }
+                };
+            case MOVE_CRITERIA:
+                if (
+                    action.payload.direction == -1 &&
+                    action.payload.criteriaIndex == 1
+                )
+                    return config;
+
+                if (
+                    action.payload.direction == 1 &&
+                    action.payload.criteriaIndex ==
+                        config.filter.criteria.length
+                )
+                    return config;
+
+                let criteriaToSwapWith =
+                    config.filter.criteria[
+                        action.payload.criteriaIndex -
+                            1 +
+                            action.payload.direction
+                    ];
+                let criteriaSwapping =
+                    config.filter.criteria[action.payload.criteriaIndex - 1];
+
+                config.filter.criteria[
+                    action.payload.criteriaIndex - 1 + action.payload.direction
+                ] = criteriaSwapping;
+
+                config.filter.criteria[action.payload.criteriaIndex - 1] =
+                    criteriaToSwapWith;
 
                 return {
                     ...config,
