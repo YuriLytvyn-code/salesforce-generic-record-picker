@@ -29,6 +29,7 @@
                 onchange={props.setRecordIdFromEvent}
             ></lightning-input>
         </div>
+        <div class="slds-m-vertical_small slds-border_bottom"></div>
         <div class="slds-col slds-grid slds-grid_align-end">
             <div class="slds-col">
                 <lightning-input
@@ -71,12 +72,6 @@
                             <div class="slds-box">
                                 <div class="slds-grid slds-grid_vertical">
                                     <div class="slds-col">
-                                        <lightning-input
-                                            data-index={criteria.index}
-                                            label="Field"
-                                            value={criteria.fieldPath}
-                                            onchange={props.changeFilterCriteriaFieldPath}
-                                        ></lightning-input>
                                         <lightning-combobox
                                             data-index={criteria.index}
                                             label="Field"
@@ -86,12 +81,6 @@
                                         ></lightning-combobox>
                                     </div>
                                     <div class="slds-col">
-                                        <lightning-input
-                                            data-index={criteria.index}
-                                            label="Operator"
-                                            value={criteria.operator}
-                                            onchange={props.changeFilterCriteriaOperator}
-                                        ></lightning-input>
                                         <lightning-combobox
                                             data-index={criteria.index}
                                             label="Operator"
@@ -142,6 +131,7 @@
                 </div>
             </div>
         </div>
+        <div class="slds-m-vertical_small slds-border_bottom"></div>
         <div class="slds-col slds-grid slds-grid_align-end">
             <div class="slds-col">
                 <lightning-input
@@ -164,11 +154,6 @@
             class="slds-col"
         >
             <div class="slds-grid slds-grid_vertical">
-                <lightning-input
-                    label="Primary Display Field"
-                    onchange={props.changePrimaryDisplayField}
-                    value={props.config.displayInfo.primaryField}
-                ></lightning-input>
                 <lightning-combobox
                     label="Primary Display Field"
                     value={props.config.displayInfo.primaryField}
@@ -179,12 +164,6 @@
                     for:each={props.config.displayInfo.additionalFields}
                     for:item="additionalField"
                 >
-                    <lightning-input
-                        key={props.util.key}
-                        label="Additional Display Field"
-                        onchange={props.changeAdditionalDisplayField}
-                        value={additionalField}
-                    ></lightning-input>
                     <lightning-combobox
                         key={props.util.key}
                         label="Additional Display Field"
@@ -195,6 +174,7 @@
                 </template>
             </div>
         </div>
+        <div class="slds-m-vertical_small slds-border_bottom"></div>
         <div class="slds-col slds-grid slds-grid_align-end">
             <div class="slds-col">
                 <lightning-input
@@ -218,11 +198,6 @@
         >
             <div class="slds-grid slds-grid_vertical">
                 <div class="slds-col">
-                    <lightning-input
-                        label="Matching Primary Field"
-                        onchange={props.changePrimaryMatchingField}
-                        value={props.config.matchingInfo.primaryField.fieldPath}
-                    ></lightning-input>
                     <lightning-combobox
                         label="Matching Primary Field"
                         value={props.config.matchingInfo.primaryField.fieldPath}
@@ -231,11 +206,6 @@
                     ></lightning-combobox>
                 </div>
                 <div class="slds-col">
-                    <lightning-input
-                        label="Matching Primary Field Mode"
-                        onchange={props.changePrimaryMatchingFieldMode}
-                        value={props.config.matchingInfo.primaryField.mode}
-                    ></lightning-input>
                     <lightning-combobox
                         label="Matching Primary Field Mode"
                         onchange={props.changePrimaryMatchingFieldMode}
@@ -248,12 +218,6 @@
                         for:each={props.config.matchingInfo.additionalFields}
                         for:item="additionalField"
                     >
-                        <lightning-input
-                            key={props.util.key}
-                            label="Matching Additional Field"
-                            onchange={props.changeAdditionalMatchingField}
-                            value={additionalField.fieldPath}
-                        ></lightning-input>
                         <lightning-combobox
                             key={props.util.key}
                             label="Matching Additional Field"
